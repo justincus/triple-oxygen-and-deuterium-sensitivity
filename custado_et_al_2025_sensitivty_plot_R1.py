@@ -4,7 +4,7 @@ Created on Thu Jan 18 10:52:52 2024
 
 @author: mcustado
 
-This script generates the sensitivity plots in "Contrasting controls on δ18O-δ2H and δ18O-δ17O isotope systematics in a balance-filled lake" by Custado et al. (2025)
+This script generates the sensitivity plots in "Contrasting controls on δ18O-δ2H and δ18O-δ17O systematics in a balance-filled lake" by Custado et al. (2025)
 
 Variable names:
     d = small delta (δ)
@@ -552,3 +552,4 @@ plt.legend()
 # plt.savefig('{path}'+'fig_3c.png', bbox_inches="tight", dpi=600)
 
 plt.show()
+
