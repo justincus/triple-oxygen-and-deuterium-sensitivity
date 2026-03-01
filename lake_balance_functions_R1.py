@@ -4,7 +4,7 @@ Created on Mon Jan  8 21:04:54 2024
 
 @author: mcustado
 
-This script contains functions used in "Differing sensitivity of δ18O-δ2H versus δ18O-δ17O systematics in a balance-filled lake" by Custado et al. (2025)
+This script contains functions used in "Contrasting controls on δ18O-δ2H and δ18O-δ17O systematics in a balance-filled lake" by Custado et al. (2025)
 The functions here are called in 'custado_et_al_2025_mc_output_R1.py', 'custado_et_al_2025_plots_R1.py', and 'custado_et_al_2025_sensitivity_plot_R1.py'
 
 # Let:
@@ -135,3 +135,4 @@ def uncertainty_mean(data):
     std_dev = np.nanstd(data, ddof=1)  # ddof=1 for sample standard deviation
     sem = std_dev / np.sqrt(n)
     return sem
+
