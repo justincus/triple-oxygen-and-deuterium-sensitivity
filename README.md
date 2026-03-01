@@ -1,5 +1,4 @@
 
-=======================================================================================================
 This repository contains the data tables and Python scripts used to generate the isotopic inputs, Monte Carlo simulations, figures, and sensitivity analyses for the manuscript:
 
 “Contrasting controls on δ18O–δ2H and δ18O–δ17O systematics in a balance-filled lake”
@@ -8,7 +7,7 @@ Custado et al. (2025)
 All isotope values are reported relative to VSMOW. Small delta notation (δ) is reported in per mil (‰). 
 Δ′17O values are reported in per meg unless otherwise stated.
 
-========================================== FILE DESCRIPTIONS ==========================================
+FILE DESCRIPTIONS
 
 1. bl_d17o_datasheet.csv
 Primary master dataset containing all measured isotope data used in this study. This includes lake water, inflow components (inlet and creeks), groundwater and springs, and precipitation samples. This file is the sole source of measured isotope values used throughout all scripts.
@@ -54,7 +53,7 @@ Generates main-text Figure 2
 8. custado_et_al_2025_sensitivity_plot_R1.py
 Performs sensitivity analyses by perturbing isotopic and climatic input parameters within interquartile ranges to evaluate response of h, Xe, and lake isotopic composition.
 
-============================= COLUMN DESCRIPTIONS — bl_d17o_datasheet.csv =============================
+COLUMN DESCRIPTIONS — bl_d17o_datasheet.csv
 
 Sample_ID
 Unique identifier assigned to each water sample.
