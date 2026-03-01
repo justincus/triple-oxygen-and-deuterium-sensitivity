@@ -5,12 +5,7 @@ Created on Mon Jan  8 21:04:54 2024
 @author: mcustado
 
 This script contains functions used in "Differing sensitivity of δ18O-δ2H versus δ18O-δ17O systematics in a balance-filled lake" by Custado et al. (2025)
-The functions here are called in 'custado_et_al_2025_mc_output.py', 'custado_et_al_2025_plots.py', and 'custado_et_al_2025_sensitivity_plot.py'
-"""
-
-import numpy as np
-
-#%% Set up mass balance equations (Gonfiantini, 1981)
+The functions here are called in 'custado_et_al_2025_mc_output_R1.py', 'custado_et_al_2025_plots_R1.py', and 'custado_et_al_2025_sensitivity_plot_R1.py'
 
 # Let:
 # h = Humidity
@@ -36,29 +31,18 @@ import numpy as np
 # Assumptions: 
     # 1) Lake volume does not change significantly over time
     # 2) Lake is well-mixed
+    
+"""
+import numpy as np
 
-# Estimate isotopic composition of atm moisture
+#%% Set up equation to estimate isotopic composition of atmospheric moisture 
+
 # Atmospheric moisture upwind of the lake is assumed to be in equilibrium with mean annual precipitation or if site is seasonal, precipitation during the evaporation season. Ideally, evaporation flux-weighted precipitation isotope data (see also Gibson et al., 2008, 2015)
-# k parameter = seasonality factor. 0.5 (highly seasonal) to 1 (non-seasonal). Gibston, et al., 2015
+# k parameter = seasonality factor. 0.5 (highly seasonal) to 1 (non-seasonal). Gibson, et al., 2015
 
 def isotope_atm (precip, ep_eq, k): 
     dX_A = (precip-(k*ep_eq))/(1+(0.001*k*ep_eq))
     return dX_A
-
-# Estimate isotopic composition of lake at steady state (dX_LS)
-
-# using d18O-dD system (Craig and Gordon, 1965; Gonfiantini, 1981; Gibson, et al., 2016)
-def mass_balance_ssx (h, ep_k, ep_eq, alfa, dX_A, dX_I, x):
-    a = ((h*dX_A)+ep_k+(ep_eq/alfa))/(1-h+(0.001*ep_k))
-    b = (h-0.001*(ep_k+(ep_eq/alfa)))/(1-h+(0.001*ep_k))
-    dX_LS = ((x*a)+dX_I)/(1+(b*x))
-    limit = a/b
-    return dX_LS, limit
-
-# using d17O-d18O system (Form of equation following Passey and Levin, 2021)
-def passey_and_levin(h, alfa_eq, alfa_k, Ra, Ri, x):
-    Rl = (alfa_eq*alfa_k*(1-h)*Ri + alfa_eq*x*h*Ra)/(alfa_eq*alfa_k*(1-h)*(1-x)+x)
-    return Rl
 
 #%% Set up equations for fractionation and enrichment factors
 
@@ -78,19 +62,23 @@ def fractionation_factor_k_d17O (alpha):
     alpha_17 = alpha**0.5185
     return alpha_17
 
-def kinetic_en_d18O(humidity):
+def kinetic_en_d18O(humidity):       # 0.5 multiplier typically used for lakes (Merlivat, 1978; Voigt et al., 2021)
     ep_k = 0.5*28.4*(1-humidity) 
     return ep_k
 
-def kinetic_en_dD(humidity):
-    ep_k = 12.5*(1-humidity)
+def kinetic_en_dD(humidity):        # 0.5 multiplier typically used for lakes (Merlivat, 1978; Voigt et al., 2021)
+    ep_k = 0.5*25*(1-humidity)
     return ep_k
 
 def kinetic_en_d17O(humidity):
-    ep_k = 0.5*14.71*(1-humidity)   #14.64 value from  from Pierchala et al. 2022; Barkan and Luz (2007) is 14.71 # Removed 0.5 multiplier
+    ep_k = 0.5*14.71*(1-humidity)   # 14.64 value from  from Pierchala et al. 2022; Barkan and Luz (2007) is 14.71; # 0.5 multiplier typically used for lakes (Merlivat, 1978; Voigt et al., 2021)
     return ep_k
 
-#%% Set up functions to volume-weighted isotopic average of the creeks and total influx
+#%% Set up functions tocalculate  volume-weighted isotopic average of the creeks and total influx
+
+def get_weighted_ave (x, weight):
+    wt = np.sum(x*weight)/np.sum(weight)
+    return wt
 
 def creek_wt_isotope (paris, scharles, bloom, big, neden, seden, swan):
     paris_disch = 8422054.769 # ave vol/month
