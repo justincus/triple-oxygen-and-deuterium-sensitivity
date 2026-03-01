@@ -4,7 +4,7 @@ Created on Wed Nov 12 14:46:06 2025
 
 @author: mcustado
 
-This script calculates summary mean and uncertainty from the measured samples used in "Contrasting controls on δ18O-δ2H and δ18O-δ17O isotope systematics in a balance-filled lake" by Custado et al. (2025)
+This script calculates summary mean and uncertainty from the measured samples used in "Contrasting controls on δ18O-δ2H and δ18O-δ17O systematics in a balance-filled lake" by Custado et al. (2025)
 
 Variable names:
     d = small delta (δ)
@@ -294,3 +294,4 @@ all_data_df.to_csv(r'...\isotopic_inputs.csv') # Insert file directory path
 
 
       
+
